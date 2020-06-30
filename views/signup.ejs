@@ -2,17 +2,17 @@
 <form method="POST" action="/signup">
     <div class="form-group">
         <label for="inputName">User Name</label>
-        <input type="text" class="form-control" id="inputName" placeholder="Enter Username">
+        <input type="text" class="form-control" name="username" id="inputusername" placeholder="Enter Username">
     </div>
     
     <div class="form-group">
       <label for="inputEmail">Email address</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+      <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
     
     <div class="form-group">
       <label for="inputPassword">Password</label>
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+      <input type="password" class="form-control" name="passwordHash" id="inputPassword" placeholder="Password">
     </div>
     
     <button type="submit" class="btn btn-primary">회원가입</button>

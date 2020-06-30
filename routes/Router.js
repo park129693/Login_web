@@ -24,7 +24,18 @@ router.get('/signup', (req, res, next)=>{
 })
 
 router.post('/signup',(req, res, next)=>{
-    console.log(req.body.id.inputname)
+    var contact = new User()
+    contact.username = req.body.username
+    contact.passwordHash = req.body.passwordHash
+    contact.email = req.body.email
+    
+    contact.save((err, result)=>{
+        if(err) {
+            console.log(err)
+        }
+        console.log(result)
+        res.send("Success")
+    })
 })
 
 router.post('/insert', (req, res, next)=>{
