@@ -38,30 +38,54 @@ router.post('/signup',(req, res, next)=>{
     })
 })
 
-router.get('/login',(req, res , next)=>{
-    res.render('login')
-})
+// router.get('/login',(req, res , next)=>{
+//     res.render('login')
+// })
 
-router.post('/login',async (req, res, next) => {
-    var username = await req.body.username
-    var passwordHash = await req.body.passwordHash
-    User.findOne({username:username} ,(err,result) =>{
-        if(err){
-            console.log(err.body)
-        }
-        if(!result){
-            res.send(`${username} is not exist`)
-        } else {
-            if(result.passwordHash == passwordHash){
-                console.log(username)
-                res.render('index', {data:username})
-            }
-            else{
-                res.send(`${username}'s password is wrong`)
-            }
-        }
-    })
-})
+// router.post('/login',async (req, res, next) => {
+//     var username = await req.body.username
+//     var passwordHash = await req.body.passwordHash
+//     User.findOne({username:username} ,(err,result) =>{
+//         if(err){
+//             console.log(err.body)
+//         }
+//         if(!result){
+//             res.send(`${username} is not exist`)
+//         } else {
+//             if(result.passwordHash == passwordHash){
+//                 console.log(username)
+//                 res.render('index', {data:username})
+//             }
+//             else{
+//                 res.send(`${username}'s password is wrong`)
+//             }
+//         }
+//     })
+// })
 
+// router.route('/login')
+//     .get((req, res, next) => {
+//         res.render('login.ejs')
+//     })
+//     .post(async (req, res, next) => {
+//         var username = await req.body.username
+//         var passwordHash = await req.body.passwordHash
+//         User.findOne({username:username} ,(err,result) =>{
+//             if(err){
+//                 console.log(err.body)
+//             }
+//             if(!result){
+//                 res.send(`${username} is not exist`)
+//             } else {
+//                 if(result.passwordHash == passwordHash){
+//                     console.log(username)
+//                     res.render('index.ejs', {data:username})
+//                 }
+//                 else{
+//                     res.send(`${username}'s password is wrong`)
+//                 }
+//             }
+//         })
+//     })
 
 module.exports = router;
