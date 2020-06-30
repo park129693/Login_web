@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
-    <link rel="shortcut icon" type="image⁄x-icon" href="pizza.ico">
-</head>
-<body>
-    <h1>사랑합니당 <%= data.a %>님!!!!!!</h1>
-</body>
-</html>
+<%- include('_header.ejs') -%>
+    <h1>사랑합니당 <%= data[0].username %>님!!!!!!</h1>
+    <h1>사랑합니당 <%= data[1].username %>님!!!!!!</h1>
+<%- include('_footer.ejs') -%>

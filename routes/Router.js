@@ -8,8 +8,23 @@ var name = {
     c: "영희"
 }
 router.get('/', (req, res, next)=>{
-    console.log(req)
-    res.render('index', {data:name})
+    User.find((err, result)=>{
+        if(err) {
+            console.log(error)
+        }
+        // console.log(req)
+        //res.send(result)
+        res.render('index', {data:result})
+    })
+
+})
+
+router.get('/signup', (req, res, next)=>{
+    res.render('signup')
+})
+
+router.post('/signup',(req, res, next)=>{
+    console.log(req.body.id.inputname)
 })
 
 router.post('/insert', (req, res, next)=>{
