@@ -5,6 +5,10 @@ var path = require('path')
 require('ejs')
 var apiRouter = require('./routes/Router')
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
+var flash = require("express-flash-messages")
+var cookieParser = require('cookie-parser')
+var session = require('express-session')
 
 var pw = process.env.PASSWORD
 var url = `mongodb+srv://root:${pw}@cluster0.ze1q8.mongodb.net/MyDB_Daejeon?retryWrites=true&w=majority`
@@ -17,6 +21,11 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
+app.user(session({
+    secret:"fhweohfowejh",
+    resave:true,
+    saveUninitialized:true
+}))
 
 app.use('/', apiRouter)
 

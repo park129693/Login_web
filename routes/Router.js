@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User')
 var List = require('../models/List')
-
+var bcrypt = require('bcryptjs')
 
 var name = {
     a: "철수",
@@ -22,23 +22,52 @@ router.get('/', (req, res, next)=>{
 })
 
 router.get('/signup', (req, res, next)=>{
-    res.render('signup')
+    res.render('signup', {message:"ture"})
 })
 
-router.post('/signup',(req, res, next)=>{
-    var contact = new User()
-    contact.username = req.body.username
-    contact.passwordHash = req.body.passwordHash
-    contact.email = req.body.email
+// router.post('/signup',(req, res, next)=>{
+//     User.findOne({username :req.body.username}, (err, user)=>{
+//         if(err) {
+//             console.log(err)
+//         } else if(user) {
+//             res.render('signup', {message:"false", data:user.username})
+//         }
+//         var contact = new User()
+//         contact.username = req.body.username
+//         contact.passwordHash = bcrypt.hashSync(req.body.passwordHash)
+//         contact.email = req.body.email
     
-    contact.save((err, result)=>{
+//         contact.save((err, result)=>{
+//             if(err) {
+//                 console.log(err)
+//             }
+//             console.log(result)
+//             res.redirect('/main')
+//         })
+//     })
+// })
+
+router.post('/signup', (req, res , next)=>{
+    User.findOne({username :req.body.username} ,async (err, user)=>{
         if(err) {
             console.log(err)
-        }
-        console.log(result)
-        res.send("Success")
-    })
+        } 
+        if(user) {
+            console.log(user)
+            res.render('signup',  {message:"false" ,data:user.username})
+        } 
+        var username = await req.body.username
+        var passwordHash =await bcrypt.hashSync(req.body.passwordHash)
+        var email = await req.body.email
+        console.log(bcrypt.compareSync(req.body.passwordHash,passwordHash ))
+        // if (user) {
+        //   res.status(400).send({ message: "Email already exist" }).end();
+        // }
+        await User.create({ username,passwordHash, email });
+        res.redirect('/main')
+    })   
 })
+
 
 router.get('/login',(req, res , next)=>{
     res.render('login')
