@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User')
+var List = require('../models/List')
+
 
 var name = {
     a: "철수",
@@ -89,11 +91,34 @@ router.post('/login',async (req, res, next) => {
 //     })
 
 router.get('/main',(req, res, next)=>{
-    res.render('main')
+    List.find((err, result)=>{
+        if(err) {
+            console.log(err)
+            res.status(500).send("Interenal is delay!!")
+        }
+        console.log(result[0].title)
+        res.render('main', {data:result})
+    })
 })
 
 router.get('/insert',(req, res, next)=>{
     res.render('insert')
+})
+
+router.post('/insert',(req, res, next)=>{
+    var contact = new List()
+    contact.title = req.body.title
+    contact.description = req.body.description
+    contact.email = req.body.email
+    contact.author = req.body.author
+    
+    contact.save((err, result)=>{
+        if(err) {
+            console.log(err)
+        }
+        console.log(result)
+        res.redirect("/main")
+    })
 })
 
 module.exports = router;

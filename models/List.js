@@ -1,10 +1,6 @@
 var mongoose = require('mongoose')
 
-var BoardSchema = mangoose.Schema({
-    no:{
-        type:String,
-        required:true
-    },
+var ListSchema = mongoose.Schema({
     title:{
         type:String,
         required:true
@@ -13,17 +9,19 @@ var BoardSchema = mangoose.Schema({
         type:String,
         required:true
     },
+    email:{
+        type:String,
+        required:true
+    },
     author:{
         type:String,
         required:true
     },
-    edit:{
-        type:String,
-        required:true
-    },
-    email:String,
     createAt:{
         type:Date,
         default:Date.now
     }
 })
+
+var List = mongoose.model('List', ListSchema);
+module.exports = List;
